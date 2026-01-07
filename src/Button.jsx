@@ -22,10 +22,10 @@ const Button = ({
   hoverBackgroundColor = '#e9ecef',
   hoverColor,
   hoverBorderColor,
-  // Size props
+  // Size props (only set if explicitly provided, otherwise let external CSS handle)
   width,
   minWidth,
-  height = '44px',
+  height,
   padding = '10px 24px',
   // Border props
   borderRadius = '100px',
@@ -38,28 +38,52 @@ const Button = ({
   // Additional props
   ...rest
 }) => {
+  // Check if className is provided - if so, let external CSS handle all styling
+  // External CSS can override colors, sizes, hover effects, etc.
+  const hasExternalCSS = className && className.trim() !== '';
+
   // Build inline styles
   const buttonStyles = {
-    backgroundColor,
-    color,
-    borderColor: borderColor || backgroundColor,
-    borderWidth,
-    borderStyle: borderWidth !== '0px' ? 'solid' : 'none',
-    borderRadius,
-    padding,
-    fontSize,
-    fontWeight,
-    height,
-    width: width || 'auto',
-    minWidth: minWidth || 'auto',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.6 : 1,
-    transition: 'all 0.3s ease',
+    // If external CSS class is provided, don't apply any inline styles for colors/sizes
+    // Let external CSS handle everything
+    ...(hasExternalCSS ? {
+      // Only apply essential functional styles
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      opacity: disabled ? 0.6 : 1,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+    } : {
+      // Default package styles when no external CSS class
+      backgroundColor,
+      color,
+      borderColor: borderColor || backgroundColor,
+      borderWidth,
+      borderStyle: borderWidth !== '0px' ? 'solid' : 'none',
+      borderRadius,
+      padding,
+      fontSize,
+      fontWeight,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      opacity: disabled ? 0.6 : 1,
+      transition: 'all 0.3s ease',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      // Only set size props if explicitly provided
+      ...(width !== undefined && width !== null && { width }),
+      ...(height !== undefined && height !== null && { height }),
+      ...(minWidth !== undefined && minWidth !== null && { minWidth }),
+    }),
+    // Custom styles always applied (lowest priority)
     ...customStyles
   };
 
   // Handle hover styles via CSS custom properties or data attributes
-  const hoverStyles = {
+  // Only set if no external CSS class is provided
+  const hoverStyles = hasExternalCSS ? {} : {
     '--hover-bg-color': hoverBackgroundColor,
     '--hover-color': hoverColor || color,
     '--hover-border-color': hoverBorderColor || borderColor || backgroundColor,
@@ -94,8 +118,8 @@ const Button = ({
       return (
         <>
           {icon && iconPosition === 'left' && <span className="veeyaa-button-icon">{renderIcon()}</span>}
-          <span className="veeyaa-button-hover-text">{hoverText}</span>
-          <span className="veeyaa-button-default-text">{defaultText}</span>
+          <span className="veeyaa-button-default-text onblure">{defaultText}</span>
+          <span className="veeyaa-button-hover-text onhover">{hoverText}</span>
           {icon && iconPosition === 'right' && <span className="veeyaa-button-icon">{renderIcon()}</span>}
         </>
       );

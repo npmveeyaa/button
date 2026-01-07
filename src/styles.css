@@ -13,6 +13,17 @@
   user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  vertical-align: middle;
+  /* Default package styles - can be overridden by external CSS */
+  width: auto;
+  height: 44px;
+  min-width: auto;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.3s ease;
 }
 
 /* Default Variant */
@@ -20,6 +31,13 @@
   background-color: #ffffff;
   color: #333333;
   border: 1px solid #e9ecef;
+}
+
+/* Default hover for default variant */
+.veeyaa-button-default:not(.veeyaa-button-disabled):hover {
+  background-color: #e9ecef;
+  color: #333333;
+  border-color: #e9ecef;
 }
 
 /* Outline Variant */
@@ -65,7 +83,9 @@
 .veeyaa-button-icon {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   margin-right: 8px;
+  vertical-align: middle;
 }
 
 .veeyaa-button-icon:last-child {
@@ -73,22 +93,56 @@
   margin-left: 8px;
 }
 
-/* Hover Text Change Styles */
-.veeyaa-button-hover-text {
+/* Ensure proper vertical alignment for icon and text */
+.veeyaa-button .veeyaa-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.veeyaa-button .veeyaa-button-default-text,
+.veeyaa-button .veeyaa-button-hover-text {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Ensure icon and text are properly aligned */
+.veeyaa-button-icon i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover Text Change Styles - Support both package classes and external CSS classes */
+.veeyaa-button-hover-text,
+.veeyaa-button-hover-text.onhover {
   display: none;
+  visibility: hidden;
 }
 
-.veeyaa-button-default-text {
+.veeyaa-button-default-text,
+.veeyaa-button-default-text.onblure {
   display: inline-block;
+  visibility: visible;
 }
 
-.veeyaa-button:hover .veeyaa-button-hover-text {
-  display: inline-block;
+/* Package hover styles - only apply if external CSS doesn't handle it */
+.veeyaa-button:not(.veeyaa-button-disabled):hover .veeyaa-button-hover-text:not(.onhover) {
+  display: inline-block !important;
+  visibility: visible !important;
 }
 
-.veeyaa-button:hover .veeyaa-button-default-text {
-  display: none;
+.veeyaa-button:not(.veeyaa-button-disabled):hover .veeyaa-button-default-text:not(.onblure) {
+  display: none !important;
+  visibility: hidden !important;
 }
+
+/* Support external CSS classes (.onhover and .onblure) - let external CSS handle these */
+/* External CSS will handle .btn-bookaseat-outline:hover .onhover and .onblure */
 
 /* Allow external CSS to override */
 .veeyaa-button * {
