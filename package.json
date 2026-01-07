@@ -1,6 +1,6 @@
 {
   "name": "@veeyaainnovatives/button",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A reusable Button component for React applications with configurable styles",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
