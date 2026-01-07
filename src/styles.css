@@ -1,0 +1,97 @@
+/* Base Button Styles */
+.veeyaa-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  line-height: 1.5;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default Variant */
+.veeyaa-button-default {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #e9ecef;
+}
+
+/* Outline Variant */
+.veeyaa-button-outline {
+  background-color: transparent;
+  color: #333333;
+  border: 2px solid #e9ecef;
+}
+
+/* Text Variant */
+.veeyaa-button-text {
+  background-color: transparent;
+  color: #333333;
+  border: none;
+}
+
+/* Disabled State */
+.veeyaa-button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+/* Hover Effect - Using data attributes for dynamic colors */
+.veeyaa-button:not(.veeyaa-button-disabled):hover {
+  background-color: var(--hover-bg-color, #e9ecef);
+  color: var(--hover-color, #333333);
+  border-color: var(--hover-border-color, #e9ecef);
+}
+
+/* Focus State */
+.veeyaa-button:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.2);
+  outline-offset: 2px;
+}
+
+/* Active State */
+.veeyaa-button:not(.veeyaa-button-disabled):active {
+  transform: scale(0.98);
+}
+
+/* Icon Styles */
+.veeyaa-button-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.veeyaa-button-icon:last-child {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Hover Text Change Styles */
+.veeyaa-button-hover-text {
+  display: none;
+}
+
+.veeyaa-button-default-text {
+  display: inline-block;
+}
+
+.veeyaa-button:hover .veeyaa-button-hover-text {
+  display: inline-block;
+}
+
+.veeyaa-button:hover .veeyaa-button-default-text {
+  display: none;
+}
+
+/* Allow external CSS to override */
+.veeyaa-button * {
+  pointer-events: none;
+}
+
